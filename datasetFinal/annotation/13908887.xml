@@ -1,0 +1,22 @@
+<annotation>
+  <folder>germany</folder>
+  <filename>13908887.jpg</filename>
+  <segmented>0</segmented>
+  <size>
+    <width>460</width>
+    <height>350</height>
+    <depth>3</depth>
+  </size>
+  <object>
+    <name>License Plates</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>72</xmin>
+      <ymin>195</ymin>
+      <xmax>137</xmax>
+      <ymax>216</ymax>
+    </bndbox>
+  </object>
+</annotation>
