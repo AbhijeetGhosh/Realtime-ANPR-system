@@ -1,6 +1,8 @@
 ## Intro
 
-[![Build Status](https://travis-ci.org/thtrieu/darkflow.svg?branch=master)](https://travis-ci.org/thtrieu/darkflow) [![codecov](https://codecov.io/gh/thtrieu/darkflow/branch/master/graph/badge.svg)](https://codecov.io/gh/thtrieu/darkflow)
+# Realtime-ANPR-system
+Automatic Number Plate System
+This is a Realtime Anpr System, having cutting edge accuracy. The OCR Pipeline in uniquely desinged here, for ANPR systems and the model has been trained on 10,000 images of vehicles where each image was annotated manually. The data set was collected from a plethora of online sources by the web scraping scripts written by me. 
 
 Real-time object detection and classification. Paper: [version 1](https://arxiv.org/pdf/1506.02640.pdf), [version 2](https://arxiv.org/pdf/1612.08242.pdf).
 
@@ -252,26 +254,3 @@ imgcv = cv2.imread("./sample_img/sample_dog.jpg")
 result = tfnet.return_predict(imgcv)
 print(result)
 ```
-
-
-## Save the built graph to a protobuf file (`.pb`)
-
-```bash
-## Saving the lastest checkpoint to protobuf file
-flow --model cfg/yolo-new.cfg --load -1 --savepb
-
-## Saving graph and weights to protobuf file
-flow --model cfg/yolo.cfg --load bin/yolo.weights --savepb
-```
-When saving the `.pb` file, a `.meta` file will also be generated alongside it. This `.meta` file is a JSON dump of everything in the `meta` dictionary that contains information nessecary for post-processing such as `anchors` and `labels`. This way, everything you need to make predictions from the graph and do post processing is contained in those two files - no need to have the `.cfg` or any labels file tagging along.
-
-The created `.pb` file can be used to migrate the graph to mobile devices (JAVA / C++ / Objective-C++). The name of input tensor and output tensor are respectively `'input'` and `'output'`. For further usage of this protobuf file, please refer to the official documentation of `Tensorflow` on C++ API [_here_](https://www.tensorflow.org/versions/r0.9/api_docs/cc/index.html). To run it on, say, iOS application, simply add the file to Bundle Resources and update the path to this file inside source code.
-
-Also, darkflow supports loading from a `.pb` and `.meta` file for generating predictions (instead of loading from a `.cfg` and checkpoint or `.weights`).
-```bash
-## Forward images in sample_img for predictions based on protobuf file
-flow --pbLoad built_graph/yolo.pb --metaLoad built_graph/yolo.meta --imgdir sample_img/
-```
-If you'd like to load a `.pb` and `.meta` file when using `return_predict()` you can set the `"pbLoad"` and `"metaLoad"` options in place of the `"model"` and `"load"` options you would normally set.
-
-That's all.
